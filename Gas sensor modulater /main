@@ -7,14 +7,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # --- Configuration ---
-PORT = "/dev/ttyACM0"
+PORT = "/dev/tty.usbmodem142201"
 BAUDRATE = 9600
 DURATION = 10  
 SAMPLING_INTERVAL = 0.25 #4 Hz
 
-arduino = serial.Serial("/dev/ttyACM0", 9600)
+arduino = serial.Serial("/dev/tty.usbmodem142201", 9600)
 
-while True:
+while arduino.is_open:
     data = arduino.readline().decode().strip()
     print(f"Sensor Value: {data}")
 
@@ -86,3 +86,28 @@ results = analyze_sensor_response(timestamps, sensor_values)
 print("\nSensor Response Summary:")
 for k, v in results.items():
     print(f"{k}: {v:.2f}")
+
+# ---decoding demands---
+
+def decode_command(features):
+    """
+    Decodes the sprayer action into one of four commands based on extracted features.
+    You can adjust the thresholds based on your experimental data.
+    """
+    # Example logic (customize as needed):
+    if features['duration'] > 5 and features['energy'] > 10000:
+        return "UP"
+    elif features['duration'] > 2 and features['time_to_peak'] < 2:
+        return "DOWN"
+    elif features['peak'] > 800:
+        return "RIGHT"
+    elif features['decay_time'] and features['decay_time'] > 2:
+        return "LEFT"
+    else:
+        return "UNKNOWN"
+
+
+# --- Decode Command ---
+#command = decode_command(results)
+#print(f"\nDecoded Command: {command}")
+# ...existing code...

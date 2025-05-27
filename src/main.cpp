@@ -119,14 +119,14 @@ void loop() {
     //Power cycle the sprayer
     while(1)
     {
-      for (int i = 30; i < 50; i +=2)
+      for (int i = 30; i < 40; i +=2)
       {
         duty_cycle = i;
         delay(200);
         Serial.print("Duty cycle: ");
         Serial.println(duty_cycle);
       }
-      for (int i = 50; i > 30; i -=2)
+      for (int i = 40; i > 30; i -=2)
       {
         duty_cycle = i;
         delay(200);
