@@ -7,21 +7,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # --- Configuration ---
-PORT = 
+PORT = "/dev/ttyACM0"
 BAUDRATE = 9600
 DURATION = 10  
-SAMPLING_INTERVAL = 
+SAMPLING_INTERVAL = 0.25 #4 Hz
 
-ser = serial.Serial('', 9600)  
+arduino = serial.Serial("/dev/ttyACM0", 9600)
 
 while True:
-    data = ser.readline().decode().strip()
+    data = arduino.readline().decode().strip()
     print(f"Sensor Value: {data}")
 
-
-# --- Connect to Arduino ---
-ser = serial.Serial(PORT, BAUDRATE, timeout=1)
-time.sleep(2)  # Wait for Arduino to reset
 
 # --- Data Acquisition ---
 timestamps = []
@@ -30,7 +26,7 @@ start_time = time.time()
 
 print("Reading sensor data...")
 while time.time() - start_time < DURATION:
-    line = ser.readline().decode('utf-8').strip()
+    line = arduino.readline().decode('utf-8').strip()
     try:
         value = float(line)
         current_time = time.time() - start_time
@@ -40,7 +36,7 @@ while time.time() - start_time < DURATION:
         continue
     time.sleep(SAMPLING_INTERVAL)
 
-ser.close()
+arduino.close()
 print("Done.")
 
 # --- Convert to NumPy arrays ---
