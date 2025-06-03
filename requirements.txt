@@ -1,0 +1,8 @@
+numpy
+plotly
+ipython
+ipywidgets
+jupyter
+pyserial
+anywidget
+plottingtools_emilbowry.Plots
