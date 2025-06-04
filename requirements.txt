@@ -1,8 +1,8 @@
 numpy
-plotly
-ipython
-ipywidgets
-jupyter
+# plotly
+# ipython
+# ipywidgets
+# jupyter
 pyserial
-anywidget
+# anywidget
 plottingtools_emilbowry.Plots
