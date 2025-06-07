@@ -5,4 +5,4 @@ numpy
 # jupyter
 pyserial
 # anywidget
-plottingtools_emilbowry.Plots
+plottingtools_emilbowry
